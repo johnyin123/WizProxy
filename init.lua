@@ -19,7 +19,6 @@ function ds_proxy()
 
     if not resp_ok then
         ngx.say("Error: "..resp_code)
-        ngx.exit(500)
         return
     end
 
