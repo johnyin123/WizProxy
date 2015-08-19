@@ -4,16 +4,23 @@ local headers_host = headers["Host"]
 local httpc = http.new()
 
 httpc:set_timeout(2000)
-local ok, err = httpc:connect(headers_host, 80)
+debuglog(headers_host)
+local ok, err = httpc:connect(headers_host, 443)
 if not ok then
     ngxlog("Can't connect to host(" .. headers_host .. "): ", err)
+    return
+end
+
+local session, err = httpc:ssl_handshake()
+if not session then
+    ngxlog("Can't ssl handshake: ", err)
     return
 end
 
 httpc:set_timeout(5000)
 local res, err = httpc:proxy_request()
 if not res then
-    ngxlog("Can't proxy request: ", err)
+    ngxlog("Can't proxy_request: ", err)
     return
 end
 
