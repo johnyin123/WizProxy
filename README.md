@@ -21,15 +21,6 @@
 
 ```
 
-> lua_package_path "/usr/local/openresty/nginx/lua/WizProxy/?.lua;;";
->
-> init_by_lua_file lua/WizProxy/init.lua;
->
-> resolver 223.5.5.5;
->
-> resolver_timeout 10s;
-
-
 在nginx.conf的location段中添加如下配置：
 
 ```
@@ -38,12 +29,4 @@
         }
 
 ```
-
-
-> location / {
-> 
-> content_by_lua_file lua/WizProxy/proxy.lua;
->
-> }
-
 
