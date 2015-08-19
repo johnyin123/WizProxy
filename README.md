@@ -1,32 +1,49 @@
-nginx-lua-ds-proxy
-==================
+# WizProxy
 
-一个HTTP代理服务器，基于openresty/lua-nginx-module和liseen/lua-resty-http
+基于openresty的全新设计的代理系统
 
-A http proxy which is based on openresty/lua-nginx-module and liseen/lua-resty-http
+## 依赖
 
+- openresty or nginx with openresty/lua-nginx-module
+- pintsized/lua-resty-http
 
-将代码放在位于nginx根目录下的lua/ds_proxy/下
+## 安装
 
-Put the code into the directory lua/ds_proxy which is located in the root directory of the nginx
-
+将代码放在位于nginx根目录下的lua/WizProxy/下
 
 在nginx.conf的http段中添加如下配置：
 
-Add the config below to the http seg in nginx.conf:
+```
+    lua_package_path "/usr/local/openresty/nginx/lua/WizProxy/?.lua;;";
+    init_by_lua_file lua/WizProxy/init.lua;
+    resolver 223.5.5.5;
+    resolver_timeout 10s;
 
-    lua_package_path "/u/nginx/lua/ds_proxy/?.lua;;";
-    lua_need_request_body on;
-    init_by_lua_file lua/ds_proxy/init.lua;
-    
-    resolver 8.8.8.8;
-    resolver_timeout 5s;
-    
+```
+
+> lua_package_path "/usr/local/openresty/nginx/lua/WizProxy/?.lua;;";
+>
+> init_by_lua_file lua/WizProxy/init.lua;
+>
+> resolver 223.5.5.5;
+>
+> resolver_timeout 10s;
+
+
 在nginx.conf的location段中添加如下配置：
 
-Add the config below to the location seg in nginx.conf:
-
+```
         location / {
-            content_by_lua_file lua/ds_proxy/proxy.lua;
+            content_by_lua_file lua/WizProxy/proxy.lua;
         }
-    
+
+```
+
+
+> location / {
+> 
+> content_by_lua_file lua/WizProxy/proxy.lua;
+>
+> }
+
+
